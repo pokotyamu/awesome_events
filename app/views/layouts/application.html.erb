@@ -22,16 +22,20 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to 'Twitterでログイン', '/auth/twitter' %></li>
+            <% if logged_in? %>
+              <li><%= link_to 'ログアウト', logout_path %></li>
+            <% else %>
+              <li><%= link_to 'Twitterでログイン', '/auth/twitter' %></li>
+            <% end %>
           </ul>
         </div>
       </div>
     </header>
     <div class="container">
       <% if flash[:notice] %>
-      <div class="alert alert-success">
-        <%= flash[:notice] %>
-      </div>
+        <div class="alert alert-success">
+          <%= flash[:notice] %>
+        </div>
       <% end %>
       <%= yield %>
     </div>
