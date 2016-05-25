@@ -24,8 +24,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 ## OAuth認証用gem
-gem 'omniauth', '~>1.2.1'
-gem 'omniauth-twitter', '~>1.0.1'
+gem 'omniauth'
+gem 'omniauth-twitter'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
