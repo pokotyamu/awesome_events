@@ -47,6 +47,8 @@ group :development, :test do
 
   ## RSpec
   gem 'rspec-rails'
+
+  gem 'capybara'
 end
 
 group :development do
