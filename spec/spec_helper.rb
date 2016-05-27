@@ -17,6 +17,18 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.before(:all, type: :feature) do
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new(
+      {
+        provider: 'twitter',
+        uid: '138393532',
+        info: {
+          nickname: 'pokotyamu',
+          image: 'http://pbs.twimg.com/profile_images/715666502393856001/SlLll-Z-_normal.jpg'
+        }
+      })
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -89,4 +101,11 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  ENV["RAILS_ENV"] ||= 'test'
+  require File.expand_path("../../config/environment", __FILE__)
+  require 'rspec/rails'
+
+  require 'capybara/rails'
+  require 'capybara/rspec'
 end
