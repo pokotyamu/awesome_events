@@ -49,7 +49,6 @@ group :development, :test do
   gem 'rspec-rails'
 
   gem 'capybara'
-  gem 'mime-types-data'
 end
 
 group :development do
