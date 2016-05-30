@@ -2,13 +2,13 @@ class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
       t.integer :owner_id
-      t.string :name
-      t.string :place
-      t.datetime :start_time
-      t.datetime :end_time
-      t.text :content
+      t.string :name, null:false
+      t.string :place, null:false
+      t.datetime :start_time, null:false
+      t.datetime :end_time, null:false
+      t.text :content, null:false
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
