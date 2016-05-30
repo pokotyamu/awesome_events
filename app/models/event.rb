@@ -1,3 +1,3 @@
 class Event < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, length: { maximum: 50 }, presence: true
 end
