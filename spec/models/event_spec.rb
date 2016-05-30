@@ -26,6 +26,12 @@ describe Event, type: :model do
 
   describe 'start_time と end_time の相関関係について' do
     context 'start_time と end_time を比べた時' do
+      it 'strat_timeの方が早い時(正常系)' do
+        event = Event.new(start_time: Time.local(2015, 5, 20, 23, 59, 59), end_time: Time.local(2015, 5, 21, 23, 59, 59))
+        event.valid?
+        expect(event.errors[:start_time]).to be_blank
+      end
+
       it 'strat_time の方が遅い時' do
         event = Event.new(start_time: Time.local(2015, 5, 21, 23, 59, 59), end_time: Time.local(2015, 5, 20, 23, 59, 59))
         event.save
