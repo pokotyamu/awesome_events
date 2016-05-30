@@ -10,4 +10,8 @@ describe Event, type: :model do
     it { should validate_presence_of(:place) }
     it { should ensure_length_of(:place).is_at_most(100) }
   end
+
+  describe '#content' do
+    it { should validate_presence_of(:content) }
+  end
 end
