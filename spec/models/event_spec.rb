@@ -13,7 +13,7 @@ describe Event, type: :model do
 
   describe '#content' do
     it { should validate_presence_of(:content) }
-    it { should ensure_length_of(:content).is_at_most(200) }
+    it { should ensure_length_of(:content).is_at_most(2000) }
   end
 
   describe '#strat_time' do
