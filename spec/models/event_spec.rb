@@ -19,4 +19,8 @@ describe Event, type: :model do
   describe '#strat_time' do
     it { should validate_presence_of(:start_time) }
   end
+
+  describe '#end_time' do
+    it { should validate_presence_of(:end_time) }
+  end
 end
