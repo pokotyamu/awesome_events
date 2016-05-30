@@ -15,4 +15,8 @@ describe Event, type: :model do
     it { should validate_presence_of(:content) }
     it { should ensure_length_of(:content).is_at_most(200) }
   end
+
+  describe '#strat_time' do
+    it { should validate_presence_of(:start_time) }
+  end
 end
