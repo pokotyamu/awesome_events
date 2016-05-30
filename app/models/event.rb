@@ -3,4 +3,5 @@ class Event < ActiveRecord::Base
   validates :place, length: { maximum: 100  }, presence: true
   validates :content, length: { maximum: 200 }, presence: true
   validates :start_time, presence: true
+  validates :end_time, presence: true
 end
