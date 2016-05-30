@@ -23,4 +23,14 @@ describe Event, type: :model do
   describe '#end_time' do
     it { should validate_presence_of(:end_time) }
   end
+
+  describe '#start_time_should_be_before_end_time' do
+    context 'start_timeの方がend_timeを比べた時' do
+      it 'strat_timeの方が遅い時' do
+        event = Event.new(start_time: Time.local(2015, 5, 21, 23, 59, 59), end_time: Time.local(2015, 5, 20, 23, 59, 59))
+        event.save
+        expect(event.errors[:start_time]).to be_present
+      end
+    end
+  end
 end
