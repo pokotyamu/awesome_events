@@ -21,7 +21,9 @@ describe EventsController do
         expect(response).to redirect_to(root_path)
       end
 
-      it '@event に、新規Event オブジェクトが格納されていること'
+      it '@event に、新規Event オブジェクトが格納されていること' do
+        expect(assigns(:event)).to be_a_new(Event)
+      end
 
       it 'new テンプレートをrender していること'
 
