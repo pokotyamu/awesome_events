@@ -11,7 +11,14 @@ describe EventsController do
     end
 
     context 'ログインユーザがアクセスした時' do
-      it 'ステータスコードとして200が返ること'
+      before do
+        #ログインしているユーザを作成する処理を書く
+        get :new
+      end
+
+      it 'ステータスコードとして200が返ること' do
+        expect(response).to redirect_to(root_path)
+      end
 
       it '@event に、新規Event オブジェクトが格納されていること'
 
