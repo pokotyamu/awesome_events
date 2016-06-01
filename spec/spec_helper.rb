@@ -108,4 +108,6 @@ RSpec.configure do |config|
 
   require 'capybara/rails'
   require 'capybara/rspec'
+
+  config.include FactoryGirl::Syntax::Methods
 end
