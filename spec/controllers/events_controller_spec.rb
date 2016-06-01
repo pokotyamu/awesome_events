@@ -12,9 +12,10 @@ describe EventsController do
 
     context 'ログインユーザがアクセスした時' do
       before do
-        #ログインしているユーザを作成する処理を書く
+        user = build(:user)
+        session[:user_id] = user.id
         get :new
-      end
+        end
 
       it 'ステータスコードとして200が返ること' do
         expect(response).to redirect_to(root_path)
