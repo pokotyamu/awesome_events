@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :user
-  
+
   validates :name, length: { maximum: 50 }, presence: true
   validates :place, length: { maximum: 100  }, presence: true
   validates :content, length: { maximum: 2000 }, presence: true
