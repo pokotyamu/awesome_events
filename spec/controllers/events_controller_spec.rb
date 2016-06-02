@@ -18,7 +18,7 @@ describe EventsController do
         end
 
       it 'ステータスコードとして200が返ること' do
-        expect(response).to redirect_to(root_path)
+        expect(response.status).to eq(200)
       end
 
       it '@event に、新規Event オブジェクトが格納されていること' do
