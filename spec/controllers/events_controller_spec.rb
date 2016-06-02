@@ -15,7 +15,7 @@ describe EventsController do
         user = create(:user)
         session[:user_id] = user.id
         get :new
-        end
+      end
 
       it 'ステータスコードとして200が返ること' do
         expect(response.status).to eq(200)
@@ -28,7 +28,6 @@ describe EventsController do
       it 'new テンプレートをrender していること' do
         expect(response).to render_template :new
       end
-
     end
   end
 end
