@@ -12,7 +12,7 @@ describe EventsController do
 
     context 'ログインユーザがアクセスした時' do
       before do
-        user = build(:user)
+        user = create(:user)
         session[:user_id] = user.id
         get :new
         end
