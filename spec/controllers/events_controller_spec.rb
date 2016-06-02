@@ -25,7 +25,9 @@ describe EventsController do
         expect(assigns(:event)).to be_a_new(Event)
       end
 
-      it 'new テンプレートをrender していること'
+      it 'new テンプレートをrender していること' do
+        expect(response).to render_template :new
+      end
 
     end
   end
