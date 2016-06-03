@@ -7,7 +7,7 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.created_events.build(event_params)
-    @event.save
+    render :new unless @event.save
     head :ok
   end
 
