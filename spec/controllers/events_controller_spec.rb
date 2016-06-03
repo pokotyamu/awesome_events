@@ -39,6 +39,23 @@ describe EventsController do
         session[:user_id] = user.id
       end
 
+      context 'かつパラメータ不足している時' do
+        let(:error_event_params) do
+          {
+            event:{
+              content: "大事な会議",
+              start_time: DateTime.new(2016,6,3,13,00),
+              end_time: DateTime.new(2016,6,3,18,00)
+            }
+          }
+        end
+        before { post :create , error_event_params }
+
+        it 'new テンプレートをrender していること' do
+          expect(response).to render_template :new
+        end
+      end
+
 
       context 'かつ正しいパラメータが入っている時' do
         let(:event_params) do
