@@ -39,11 +39,21 @@ describe EventsController do
       end
 
       context 'かつ正しいパラメータが入っている時' do
+        let(:event_params) do
+          {
+            event:{
+              name: "キックオフミーティング",
+              place: "カフェスペース",
+              content: "大事な会議",
+              start_time: DateTime.new(2016,6,3,13,00),
+              end_time: DateTime.new(2016,6,3,18,00)
+            }
+          }
+        end
 
         it 'イベントを新規作成できていること' do
-          created_event = create(:event)
-          post :create
-          expect(assigns(:event)).to eq created_event
+          post :create , event_params
+          expect(assigns(:event)).to eq Event.last
         end
       end
     end
