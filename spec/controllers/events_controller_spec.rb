@@ -32,6 +32,14 @@ describe EventsController do
   end
 
   describe 'POST #create' do
+    context '未ログインユーザがアクセスした時' do
+      before { post :create }
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     context 'ログインユーザがアクセスした時' do
       let(:user) { create(:user) }
       let(:last_event) { Event.last }
