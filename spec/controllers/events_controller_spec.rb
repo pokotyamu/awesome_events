@@ -30,4 +30,22 @@ describe EventsController do
       end
     end
   end
+
+  describe 'POST #create' do
+    context 'ログインユーザがアクセスした時' do
+      let(:user) { create(:user) }
+      before do
+        session[:user_id] = user.id
+      end
+
+      context 'かつ正しいパラメータが入っている時' do
+        let(:event_params) { create(:event) }
+
+        it 'イベントを新規作成できていること' do
+          binding.pry
+          expect(assigns(:event)).to eq Event.last
+        end
+      end
+    end
+  end
 end
