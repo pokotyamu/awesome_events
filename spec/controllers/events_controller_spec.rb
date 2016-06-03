@@ -39,11 +39,11 @@ describe EventsController do
       end
 
       context 'かつ正しいパラメータが入っている時' do
-        let(:event_params) { create(:event) }
 
         it 'イベントを新規作成できていること' do
-          binding.pry
-          expect(assigns(:event)).to eq Event.last
+          created_event = create(:event)
+          post :create
+          expect(assigns(:event)).to eq created_event
         end
       end
     end

@@ -4,4 +4,8 @@ class EventsController < ApplicationController
   def new
     @event = current_user.created_events.build
   end
+
+  def create
+    head :ok
+  end
 end
