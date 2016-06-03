@@ -34,9 +34,11 @@ describe EventsController do
   describe 'POST #create' do
     context 'ログインユーザがアクセスした時' do
       let(:user) { create(:user) }
+      let(:last_event) { Event.last }
       before do
         session[:user_id] = user.id
       end
+
 
       context 'かつ正しいパラメータが入っている時' do
         let(:event_params) do
@@ -50,10 +52,18 @@ describe EventsController do
             }
           }
         end
+        before { post :create , event_params }
 
         it 'イベントを新規作成できていること' do
-          post :create , event_params
-          expect(assigns(:event)).to eq Event.last
+          expect(assigns(:event)).to eq last_event
+        end
+
+        it '各パラメータが正しく格納されていること' do
+          expect(assigns(:event).owner_id).to eq last_event.owner_id
+          expect(assigns(:event).place).to eq last_event.place
+          expect(assigns(:event).content).to eq last_event.content
+          expect(assigns(:event).start_time).to eq last_event.start_time
+          expect(assigns(:event).end_time).to eq last_event.end_time
         end
       end
     end
