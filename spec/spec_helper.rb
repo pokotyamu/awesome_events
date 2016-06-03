@@ -108,4 +108,7 @@ RSpec.configure do |config|
 
   require 'capybara/rails'
   require 'capybara/rspec'
+
+  #FactoryGirl を使うときに記述量を省略して書けるようにする
+  config.include FactoryGirl::Syntax::Methods
 end
