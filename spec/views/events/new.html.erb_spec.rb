@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "events/new", type: :view do
   context 'ログインしているユーザがアクセスした時' do
     it '"イベント作成"という見出しのページがrender されていること' do
+      assign(:event, create(:event))
       render
       expect(rendered).to match(/イベント作成/)
     end
