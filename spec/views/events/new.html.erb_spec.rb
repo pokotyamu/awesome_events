@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "events/new", type: :view do
+RSpec.describe "events/new", type: :view do
   context 'ログインしているユーザがアクセスした時' do
     before do
       assign(:event, create(:event))
@@ -12,7 +12,7 @@ describe "events/new", type: :view do
     end
 
     context 'かつ入力内容に間違い(不備)があった時' do
-      let(:error_event) { build(:event, end_time: nil) }
+      let(:error_event) { build(:event, name: "") }
       before do
         error_event.valid?
         assign(:event, error_event)
