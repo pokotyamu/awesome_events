@@ -98,4 +98,12 @@ describe EventsController do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'ユーザがアクセスした時' do
+      it 'ステータスコードとして200が返ること'
+      it '@event に、パラメータで指定したid のイベントが格納されている'
+      it 'show テンプレートをrender していること'
+    end
+  end
 end
