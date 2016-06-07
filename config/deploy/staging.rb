@@ -59,3 +59,7 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+role :app, %w{ops@vagrant.local}
+role :web, %w{ops@vagrant.local}
+role :db,  %w{ops@vagrant.local}
