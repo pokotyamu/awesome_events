@@ -38,7 +38,10 @@ RSpec.feature "NewEvents", type: :feature do
         end
 
         it 'エラーの内容が表示されていること' do
-          expect(page).to have_content /Name can\'t be blank/
+          expect(page).to have_content /名前を入力してください/
+          expect(page).to have_content /場所を入力してください/
+          expect(page).to have_content /内容を入力してください/
+          expect(page).to have_content /開始時間は終了時間よりも前に設定してください/
         end
       end
 
