@@ -51,12 +51,12 @@ RSpec.feature "NewEvents", type: :feature do
           fill_in "event_place", with: "テスト開催場所"
           fill_in "event_content", with: "テスト説明文"
           select '2016', from: 'event_start_time_1i'
-          select 'June', from: 'event_start_time_2i'
+          select '6月', from: 'event_start_time_2i'
           select '6', from: 'event_start_time_3i'
           select '00', from: 'event_start_time_4i'
           select '00', from: 'event_start_time_5i'
           select '2017', from: 'event_end_time_1i'
-          select 'June', from: 'event_end_time_2i'
+          select '6月', from: 'event_end_time_2i'
           select '6', from: 'event_end_time_3i'
           select '00', from: 'event_end_time_4i'
           select '00', from: 'event_end_time_5i'
