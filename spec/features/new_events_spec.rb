@@ -66,6 +66,10 @@ RSpec.feature "NewEvents", type: :feature do
         it '作成したイベントの詳細ぺージに遷移していること' do
           expect(page.current_path).to eq event_path(id: Event.last.id)
         end
+
+        it '"作成しました"というアラートが表示されること' do
+          expect(page).to have_content /作成しました/
+        end
       end
     end
   end
