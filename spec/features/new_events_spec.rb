@@ -60,7 +60,7 @@ RSpec.feature "NewEvents", type: :feature do
           click_button '作成'
         end
         it '作成したイベントの詳細ぺージに遷移していること' do
-          expect(page.current_path).to eq event_path
+          expect(page.current_path).to eq event_path(id: Event.last.id)
         end
       end
     end
