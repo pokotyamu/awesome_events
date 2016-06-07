@@ -91,6 +91,10 @@ describe EventsController do
           expect(assigns(:event).start_time).to eq last_event.start_time
           expect(assigns(:event).end_time).to eq last_event.end_time
         end
+
+        it 'show テンプレートをrender していること' do
+          expect(response).to redirect_to(event_path(assigns(:event)))
+        end
       end
     end
   end
