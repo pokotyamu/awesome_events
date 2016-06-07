@@ -12,7 +12,9 @@ class EventsController < ApplicationController
     else
       render :new
     end
+  end
 
+  def show
   end
 
   private
