@@ -101,9 +101,27 @@ describe EventsController do
 
   describe 'GET #show' do
     context 'ユーザがアクセスした時' do
-      it 'ステータスコードとして200が返ること'
-      it '@event に、パラメータで指定したid のイベントが格納されている'
-      it 'show テンプレートをrender していること'
+      let(:event) { create(:event) }
+
+      before do
+        get :show, id: event.id
+      end
+
+      it 'ステータスコードとして200が返ること' do
+        expect(response.status).to eq(200)
+      end
+
+      it '@event に、パラメータで指定したid のイベントが格納されている'  do
+        expect(assigns(:event).owner_id).to eq  event.owner_id
+        expect(assigns(:event).place).to eq event.place
+        expect(assigns(:event).content).to eq event.content
+        expect(assigns(:event).start_time).to eq event.start_time
+        expect(assigns(:event).end_time).to eq event.end_time
+      end
+
+      it 'show テンプレートをrender していること' do
+        expect(response).to render_template :show
+      end
     end
   end
 end
