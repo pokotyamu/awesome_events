@@ -31,7 +31,7 @@ gem 'omniauth-twitter'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-group :production do
+group :staging, :production do
   gem 'unicorn'
 end
 
