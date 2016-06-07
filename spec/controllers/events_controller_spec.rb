@@ -57,13 +57,13 @@ describe EventsController do
             }
           }
         end
+
         before { post :create , error_event_params }
 
         it 'new テンプレートをrender していること' do
           expect(response).to render_template :new
         end
       end
-
 
       context 'かつ正しいパラメータが入っている時' do
         let(:event_params) do
@@ -77,6 +77,7 @@ describe EventsController do
             }
           }
         end
+
         before { post :create , event_params }
 
         it 'イベントを新規作成できていること' do

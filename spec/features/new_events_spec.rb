@@ -59,6 +59,7 @@ RSpec.feature "NewEvents", type: :feature do
           select '00', from: 'event_end_time_5i'
           click_button '作成'
         end
+
         it '作成したイベントの詳細ぺージに遷移していること' do
           expect(page.current_path).to eq event_path(id: Event.last.id)
         end
