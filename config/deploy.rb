@@ -7,6 +7,10 @@ set :repo_url, 'git@github.com:pokotyamu/awesome_events.git'
 set :linked_files, fetch(:linked_files, []).push('.env')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
+set :default_env, {
+      rbenv_root: "/usr/local/rbenv",
+      path: "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH"
+    }
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
