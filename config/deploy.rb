@@ -4,6 +4,9 @@ lock '3.5.0'
 set :application, 'awesome_events'
 set :repo_url, 'git@github.com:pokotyamu/awesome_events.git'
 
+set :linked_files, fetch(:linked_files, []).push('.env')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
