@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate, expect: :show
+  before_action :authenticate, except: :show
 
   def new
     @event = current_user.created_events.build
