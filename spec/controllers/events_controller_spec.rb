@@ -115,8 +115,8 @@ describe EventsController do
         expect(assigns(:event).owner_id).to eq  event.owner_id
         expect(assigns(:event).place).to eq event.place
         expect(assigns(:event).content).to eq event.content
-        expect(assigns(:event).start_time).to eq event.start_time
-        expect(assigns(:event).end_time).to eq event.end_time
+        expect(assigns(:event).start_time.to_s).to eq event.start_time.to_s
+        expect(assigns(:event).end_time.to_s).to eq event.end_time.to_s
       end
 
       it 'show テンプレートをrender していること' do
