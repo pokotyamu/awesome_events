@@ -19,7 +19,9 @@ RSpec.describe WelcomeController, type: :controller do
         expect(assigns(:events)).to match_array(next_event)
       end
 
-      it '複数ある場合、そのイベントが開催時間が近い順でソートされていること'
+      it '複数ある場合、そのイベントが開催時間が近い順でソートされていること' do
+        expect(assigns(:events)).to match (next_event.sort_by{ |event| event.start_time })
+      end
     end
   end
 end
