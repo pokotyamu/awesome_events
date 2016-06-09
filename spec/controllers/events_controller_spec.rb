@@ -132,10 +132,6 @@ describe EventsController do
         it 'トップページにリダイレクトすること' do
           expect(response).to redirect_to(root_path)
         end
-
-        it '"そのイベントは存在しません"とアラートが表示されること' do
-          expect(page).to have_content /そのイベントは存在しません/
-        end
       end
     end
   end
