@@ -19,7 +19,7 @@ FactoryGirl.define do
       end_time { start_time + rand(1..30).hours }
     end
 
-    factory :rand_event, traits:[:seq_info, :rand_date]
+    factory :future_event, traits:[:seq_info, :rand_date]
     factory :closed_event, traits:[:seq_info, :closed_date]
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe WelcomeController, type: :controller do
     describe 'ユーザがトップページにアクセスした時' do
       context 'イベントが単数の時' do
         let(:pre_event) { create(:closed_event) }
-        let(:next_event) { create(:rand_event) }
+        let(:next_event) { create(:future_event) }
 
         before do
           pre_event
@@ -24,7 +24,7 @@ RSpec.describe WelcomeController, type: :controller do
 
       context 'イベントが複数ある時' do
         let(:pre_events) { create_list(:closed_event, 5) }
-        let(:next_events) { create_list(:rand_event, 5) }
+        let(:next_events) { create_list(:future_event, 5) }
 
         before do
           pre_events

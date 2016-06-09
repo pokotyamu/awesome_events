@@ -101,7 +101,7 @@ describe EventsController do
 
   describe 'GET #show' do
     context 'ユーザがアクセスした時' do
-      let(:event) { create(:rand_event) }
+      let(:event) { create(:future_event) }
 
       before do
         get :show, id: event.id
