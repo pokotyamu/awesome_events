@@ -14,11 +14,11 @@ RSpec.describe WelcomeController, type: :controller do
         end
 
         it '開催済みのイベントが表示されていないこと' do
-          expect(assigns(:events)).not_to match_array(pre_event)
+          expect(assigns(:events)).not_to include(pre_event)
         end
 
         it 'まだ開催されていないイベントが一覧で表示されていること' do
-          expect(assigns(:events)).to match_array(next_event)
+          expect(assigns(:events)).to include(next_event)
         end
       end
 
