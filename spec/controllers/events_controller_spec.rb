@@ -124,9 +124,18 @@ describe EventsController do
         end
       end
 
-      content 'かつ、作成していないイベントのページの時' do
-        it 'トップページにリダイレクトすること'
-        it '"そのイベントは存在しません"とアラートが表示されること'
+      context 'かつ、作成していないイベントのページの時' do
+        before do
+          get :show, id: 0
+        end
+
+        it 'トップページにリダイレクトすること' do
+          expect(response).to redirect_to(root_path)
+        end
+
+        it '"そのイベントは存在しません"とアラートが表示されること' do
+          expect(page).to have_content /そのイベントは存在しません/
+        end
       end
     end
   end
