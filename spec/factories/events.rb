@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     trait :rand_date do
-      start_time { rand(1..30).days.from_now }
+      start_time { Time.local(Time.now.year + 1, 5, rand(1..30), 12, 00, 00) }
       end_time { start_time + rand(1..30).hours }
     end
 
