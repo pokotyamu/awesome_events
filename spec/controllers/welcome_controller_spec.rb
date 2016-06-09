@@ -4,6 +4,7 @@ RSpec.describe WelcomeController, type: :controller do
   describe "GET #index" do
     let(:pre_event) { create_list(:fin_event, 5) }
     let(:next_event) { create_list(:rand_event, 5) }
+
     context 'イベントが複数ある状態で、ユーザがトップページにアクセスした時' do
       before do
         pre_event
