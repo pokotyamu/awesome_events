@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     trait :rand_date do
-      start_time { Time.local(Time.now.year + 1, 5, rand(1..30), 12, 00, 00) }
+      start_time { Time.local(Time.zone.now.year + 1, 5, rand(1..30), 12, 00, 00) }
       end_time { start_time + rand(1..30).hours }
     end
 
@@ -20,7 +20,7 @@ FactoryGirl.define do
     end
 
     trait :closed_date do
-      start_time { Time.local(Time.now.year - 1, 5, 2, 12, 00, 00) }
+      start_time { Time.local(Time.zone.now.year - 1, 5, 2, 12, 00, 00) }
       end_time { start_time + rand(1..30).hours }
     end
 
