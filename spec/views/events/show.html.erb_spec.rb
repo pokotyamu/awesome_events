@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "events/show", type: :view do
   context 'ユーザがアクセスした時' do
-    let(:event) { create(:event) }
+    let(:event) { create(:rand_event) }
     before do
       assign(:event, event)
       render

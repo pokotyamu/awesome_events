@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "events/new", type: :view do
   context 'ログインしているユーザがアクセスした時' do
     before do
-      assign(:event, create(:event))
+      assign(:event, create(:rand_event))
       render
     end
 
