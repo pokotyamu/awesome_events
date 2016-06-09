@@ -39,7 +39,6 @@ RSpec.describe "events/show", type: :view do
     end
 
     it '"そのイベントは存在しません"とアラートが表示されること' do
-      binding.pry
       expect(page.body).to have_content /そのイベントは存在しません/
     end
   end
