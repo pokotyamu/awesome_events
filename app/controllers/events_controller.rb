@@ -15,7 +15,11 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    begin
+      @event = Event.find(params[:id])
+    rescue
+      redirect_to root_path, notice: 'そのイベントは存在しません'
+    end
   end
 
   private
