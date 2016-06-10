@@ -27,6 +27,7 @@ RSpec.describe WelcomeController, type: :controller do
 
           it 'そのイベントが表示されていないこと' do
             expect(assigns(:events)).not_to include(current_event)
+            travel_back
           end
         end
 
