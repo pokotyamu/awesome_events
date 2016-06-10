@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, except: :show
 
   def new
     @event = current_user.created_events.build
@@ -15,6 +15,11 @@ class EventsController < ApplicationController
   end
 
   def show
+    begin
+      @event = Event.find(params[:id])
+    rescue
+      redirect_to root_path, notice: 'そのイベントは存在しません'
+    end
   end
 
   private
