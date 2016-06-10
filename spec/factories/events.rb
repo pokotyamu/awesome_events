@@ -14,9 +14,9 @@ FactoryGirl.define do
       end_time { start_time + rand(1..30).hours }
     end
 
-    trait :now_date do
-      start_time { Time.zone.now }
-      end_time { start_time + rand(1..30).hours }
+    trait :constant_date do
+      start_time { Time.local(2016,6,10,10,00,00) }
+      end_time { Time.local(2016,6,10,11,00,00) }
     end
 
     trait :closed_date do
@@ -25,7 +25,7 @@ FactoryGirl.define do
     end
 
     factory :future_event, traits:[:seq_info, :rand_date]
-    factory :now_event, traits: [:seq_info, :now_date]
+    factory :constant_event, traits: [:seq_info, :constant_date]
     factory :closed_event, traits:[:seq_info, :closed_date]
   end
 end

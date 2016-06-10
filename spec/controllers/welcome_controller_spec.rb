@@ -17,14 +17,15 @@ RSpec.describe WelcomeController, type: :controller do
         end
 
         context 'かつ、そのイベントが現在時刻と同じ時' do
-          let!(:now_event) { create(:now_event) }
+          let!(:constant_event) { create(:constant_event) }
 
           before do
+            travel_to Time.new(2016,6,10,10,00,00)
             get :index
           end
 
           it 'そのイベントが表示されていないこと' do
-            expect(assigns(:events)).not_to include(now_event)
+            expect(assigns(:events)).not_to include(constant_event)
           end
         end
 
