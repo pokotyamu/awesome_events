@@ -26,12 +26,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 ## OAuth認証用gem
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'dotenv-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+group :staging, :production do
+  gem 'unicorn'
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -52,6 +55,11 @@ group :development, :test do
 
   gem 'shoulda-matchers', '~> 2.6.0'
   gem 'factory_girl_rails', '~> 4.4.1'
+
+  gem "capistrano"
+  gem "capistrano-rails"
+  gem "capistrano-bundler"
+  gem "capistrano3-unicorn"
 end
 
 group :development do
