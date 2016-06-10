@@ -5,10 +5,9 @@ RSpec.describe WelcomeController, type: :controller do
     describe 'ユーザがトップページにアクセスした時' do
       context 'イベントが単数の時' do
         context 'かつ、そのイベントが開催済みの時' do
-          let(:pre_event) { create(:closed_event) }
+          let!(:pre_event) { create(:closed_event) }
 
           before do
-            pre_event
             get :index
           end
 
@@ -18,10 +17,9 @@ RSpec.describe WelcomeController, type: :controller do
         end
 
         context 'かつ、そのイベントが現在時刻と同じ時' do
-          let(:now_event) { create(:now_event) }
+          let!(:now_event) { create(:now_event) }
 
           before do
-            now_event
             get :index
           end
 
@@ -31,10 +29,9 @@ RSpec.describe WelcomeController, type: :controller do
         end
 
         context 'かつ、そのイベントが開催前の時' do
-          let(:next_event) { create(:future_event) }
+          let!(:next_event) { create(:future_event) }
 
           before do
-            next_event
             get :index
           end
 
@@ -45,12 +42,10 @@ RSpec.describe WelcomeController, type: :controller do
       end
 
       context 'イベントが複数ある時' do
-        let(:pre_events) { create_list(:closed_event, 5) }
-        let(:next_events) { create_list(:future_event, 5) }
+        let!(:pre_events) { create_list(:closed_event, 5) }
+        let!(:next_events) { create_list(:future_event, 5) }
 
         before do
-          pre_events
-          next_events
           get :index
         end
 
