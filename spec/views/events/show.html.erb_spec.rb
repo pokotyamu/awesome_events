@@ -27,6 +27,14 @@ RSpec.describe "events/show", type: :view do
     it '選択されたEvent のイベント内容が表示されていること' do
       expect(rendered).to match(/#{event.content}/)
     end
+
+    context '選択されたEvent の主催者がログインユーザの時' do
+      it '"イベントを編集する"が表示されていること'
+    end
+
+    context '選択されたEvent の主催者がログインユーザ以外の時' do
+      it '"イベントを編集する"が表示されていないこと'
+    end
   end
 
   context '存在しないページにユーザがアクセスした時' do
