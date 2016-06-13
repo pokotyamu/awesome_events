@@ -29,11 +29,29 @@ RSpec.describe "events/show", type: :view do
     end
 
     context '選択されたEvent の主催者がログインユーザの時' do
-      it '"イベントを編集する"が表示されていること'
+      let(:user) { create(:user) }
+      let(:user_event) { create(:future_event, owner_id: user.id) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it '"イベントを編集する"が表示されていること' do
+        expect(rendered).to match(/イベントを編集する/)
+      end
     end
 
     context '選択されたEvent の主催者がログインユーザ以外の時' do
-      it '"イベントを編集する"が表示されていないこと'
+      let(:other_user) { create(:user) }
+      let(:other_event) { create(:future_event, owner_id: other_user.id + 1) }
+
+      before do
+        session[:user_id] = other_user.id
+      end
+
+      it '"イベントを編集する"が表示されていないこと' do
+        expect(rendered).not_to match(/イベントを編集する/)
+      end
     end
   end
 
