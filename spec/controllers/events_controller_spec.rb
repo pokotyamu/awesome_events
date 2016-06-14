@@ -135,4 +135,27 @@ describe EventsController do
       end
     end
   end
+
+  describe 'GET #edit' do
+    context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
+      it 'トップページにリダイレクトすること'
+    end
+
+    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+      it '@event のedit テンプレートをrender していること'
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+      context 'かつパラメータ不足している時' do
+        it '@event のedit テンプレートをrender していること'
+      end
+
+      context 'かつ正しいパラメータが入っている時' do
+        it 'イベントが更新できていること'
+        it 'show テンプレートをrender していること'
+      end
+    end
+  end
 end
