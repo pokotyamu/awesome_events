@@ -138,13 +138,14 @@ describe EventsController do
 
   describe 'GET #edit' do
     let(:user) { create(:user)}
+    let(:user_event) { create(:future_event, owner_id: user.id) }
 
     context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
-      let(:other_event) { create(:future_event)}
+      let(:other_user) { create(:user)}
 
       before do
-        session[:user_id] = other_event.owner_id
-        get :edit, id: other_event.id
+        session[:user_id] = other_user.id
+        get :edit, id: 1
       end
 
       it 'トップページにリダイレクトすること' do
@@ -153,8 +154,6 @@ describe EventsController do
     end
 
     context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
-      let(:user_event) { create(:future_event, owner_id: user.id) }
-
       before do
         session[:user_id] = user.id
         get :edit, id: user_event.id

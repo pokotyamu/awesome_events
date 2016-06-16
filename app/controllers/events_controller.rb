@@ -23,6 +23,11 @@ class EventsController < ApplicationController
   end
 
   def edit
+    begin
+      @event = current_user.created_events.find(params[:id])
+    rescue
+      redirect_to root_path, notice: 'そのイベントは存在しません'
+    end
   end
 
   private
