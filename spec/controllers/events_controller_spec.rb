@@ -120,7 +120,7 @@ describe EventsController do
         end
 
         it 'show テンプレートをrender していること' do
-          expect(response).to render_template :show, id: event.id
+          expect(response).to render_template :show
         end
       end
 
@@ -161,7 +161,7 @@ describe EventsController do
       end
 
       it '@event のedit テンプレートをrender していること' do
-        expect(response).to render_template :edit, id: user_event.id
+        expect(response).to render_template :edit
       end
     end
   end
