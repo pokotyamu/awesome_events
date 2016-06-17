@@ -144,7 +144,7 @@ describe EventsController do
 
       before do
         session[:user_id] = other_user.id
-        get :edit, id: 1
+        get :edit, id: user_event.id
       end
 
       it 'トップページにリダイレクトすること' do
@@ -165,8 +165,8 @@ describe EventsController do
   end
 
   describe 'PATCH #update' do
-    let(:user) { create(:user) }
-    let(:event) { create(:future_event) }
+    let!(:user) { create(:user) }
+    let!(:event) { create(:future_event, owner_id: user.id) }
 
     before do
       session[:user_id] = user.id
@@ -195,15 +195,13 @@ describe EventsController do
     context 'かつ正しいパラメータが入っている時' do
       let(:params) do
         {
-          event:{
-            id: event.id,
-            owner_id: event.owner_id,
-            name: "update event name",
-            place: "update event place",
-            context: "update event context",
-            start_time: DateTime.new(event.start_time.year,1,1,00,00),
-            end_time: DateTime.new(event.end_time.year,1,1,01,00)
-          }
+          id: event.id,
+          owner_id: event.owner_id,
+          name: "update event name",
+          place: "update event place",
+          content: "update event context",
+          start_time: DateTime.new(event.start_time.year,1,1,00,00),
+          end_time: DateTime.new(event.end_time.year,1,1,01,00)
         }
       end
 
@@ -213,16 +211,16 @@ describe EventsController do
 
       it '各パラメータが正しく格納されていること' do
         updated_event = Event.find(event.id)
-        expect(updated_event.id).to eq params[:event][:id]
-        expect(updated_event.owner_id).to eq params[:event][:owner_id]
-        expect(updated_event.name).to eq params[:event][:name]
-        expect(updated_event.place).to eq params[:event][:place]
-        expect(updated_event.start_time).to eq params[:event][:start_time]
-        expect(updated_event.end_time).to eq params[:event][:end_time]
+        expect(updated_event.id).to eq params[:id]
+        expect(updated_event.owner_id).to eq params[:owner_id]
+        expect(updated_event.name).to eq params[:name]
+        expect(updated_event.place).to eq params[:place]
+        expect(updated_event.start_time).to eq params[:start_time]
+        expect(updated_event.end_time).to eq params[:end_time]
       end
 
       it 'show テンプレートをrender していること' do
-        expect(response).to render_template :show
+        expect(response).to redirect_to event_path
       end
     end
   end
