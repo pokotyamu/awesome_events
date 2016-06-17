@@ -176,16 +176,14 @@ describe EventsController do
       context 'かつ、パラメータに不備がある時' do
         let(:params) do
           {
-            event:{
               name: "大事な会議",
               start_time: DateTime.new(event.start_time.year,6,3,13,00),
               end_time: DateTime.new(event.start_time.year - 1,6,3,12,00) #=> 1年前に変更。
-            }
           }
         end
 
         before do
-          patch :update, params
+          patch :update, {id: event.id, event: params}
         end
 
         it '@event のedit テンプレートをrender していること' do
@@ -210,7 +208,7 @@ describe EventsController do
       end
 
       before do
-        patch :update, params
+        patch :update, {id: event.id, event: params}
       end
 
       it '各パラメータが正しく格納されていること' do
