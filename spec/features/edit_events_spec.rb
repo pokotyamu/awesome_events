@@ -6,8 +6,8 @@ RSpec.feature "EditEvent", type: :feature do
     let(:user_event) { create(:future_event, owner_id: user.id) }
 
     before do
-      ApplicationController.any_instance.stub(:current_user).and_return(user)
-      ApplicationController.any_instance.stub(:logged_in?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
       visit event_path(id: user_event.id)
       click_link 'イベントを編集する'
     end
