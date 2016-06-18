@@ -172,6 +172,7 @@ describe EventsController do
       before do
         session[:user_id] = user.id
       end
+
       context 'かつ、パラメータに不備がある時' do
         let(:params) do
           {
