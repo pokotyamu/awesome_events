@@ -12,10 +12,6 @@ RSpec.feature "EditEvent", type: :feature do
       click_link 'イベントを編集する'
     end
 
-    it 'イベント編集画面に遷移すること' do
-      expect(page.current_path).to eq edit_event_path(id: user_event.id)
-    end
-
     context 'かつ、更新ボタンを押した時に、イベントの属性に不備があった時' do
       before do
         fill_in "event_name", with: "テストイベント"
@@ -32,10 +28,6 @@ RSpec.feature "EditEvent", type: :feature do
         select '00', from: 'event_end_time_4i'
         select '00', from: 'event_end_time_5i'
         click_button '更新'
-      end
-
-      it 'イベント編集画面に遷移すること' do
-        expect(page.current_path).to eq edit_event_path(id: user_event.id)
       end
 
       it 'エラーの内容が表示されていること' do
@@ -59,10 +51,6 @@ RSpec.feature "EditEvent", type: :feature do
         select '00', from: 'event_end_time_4i'
         select '00', from: 'event_end_time_5i'
         click_button '更新'
-      end
-
-      it '更新したイベントの詳細ぺージに遷移していること' do
-        expect(page.current_path).to eq event_path(id: user_event.id)
       end
 
       it '"更新しました"というアラートが表示されること' do
