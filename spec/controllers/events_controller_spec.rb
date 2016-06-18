@@ -165,14 +165,13 @@ describe EventsController do
   end
 
   describe 'PATCH #update' do
-    let!(:user) { create(:user) }
-    let!(:event) { create(:future_event, owner_id: user.id) }
-
-    before do
-      session[:user_id] = user.id
-    end
-
     context 'ログインユーザが主催者のイベント編集ページで更新ボタンが押された時' do
+      let!(:user) { create(:user) }
+      let!(:event) { create(:future_event, owner_id: user.id) }
+
+      before do
+        session[:user_id] = user.id
+      end
       context 'かつ、パラメータに不備がある時' do
         let(:params) do
           {
@@ -190,37 +189,37 @@ describe EventsController do
           expect(response).to render_template :edit
         end
       end
-    end
 
-    context 'かつ正しいパラメータが入っている時' do
-      let(:params) do
-        {
-          id: event.id,
-          owner_id: event.owner_id,
-          name: "update event name",
-          place: "update event place",
-          content: "update event context",
-          start_time: DateTime.new(event.start_time.year,1,1,00,00),
-          end_time: DateTime.new(event.end_time.year,1,1,01,00)
-        }
-      end
+      context 'かつ正しいパラメータが入っている時' do
+        let(:params) do
+          {
+            id: event.id,
+            owner_id: event.owner_id,
+            name: "update event name",
+            place: "update event place",
+            content: "update event context",
+            start_time: DateTime.new(event.start_time.year,1,1,00,00),
+            end_time: DateTime.new(event.end_time.year,1,1,01,00)
+          }
+        end
 
-      before do
-        patch :update, {id: event.id, event: params}
-      end
+        before do
+          patch :update, {id: event.id, event: params}
+        end
 
-      it '各パラメータが正しく格納されていること' do
-        updated_event = Event.find(event.id)
-        expect(updated_event.id).to eq params[:id]
-        expect(updated_event.owner_id).to eq params[:owner_id]
-        expect(updated_event.name).to eq params[:name]
-        expect(updated_event.place).to eq params[:place]
-        expect(updated_event.start_time).to eq params[:start_time]
-        expect(updated_event.end_time).to eq params[:end_time]
-      end
+        it '各パラメータが正しく格納されていること' do
+          updated_event = Event.find(event.id)
+          expect(updated_event.id).to eq params[:id]
+          expect(updated_event.owner_id).to eq params[:owner_id]
+          expect(updated_event.name).to eq params[:name]
+          expect(updated_event.place).to eq params[:place]
+          expect(updated_event.start_time).to eq params[:start_time]
+          expect(updated_event.end_time).to eq params[:end_time]
+        end
 
-      it 'show テンプレートをrender していること' do
-        expect(response).to redirect_to event_path
+        it 'show テンプレートをrender していること' do
+          expect(response).to redirect_to event_path
+        end
       end
     end
   end
