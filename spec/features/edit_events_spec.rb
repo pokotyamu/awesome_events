@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 RSpec.feature "EditEvent", type: :feature do
+  describe '「編集」ボタン以外の方法でイベント編集ページにアクセスした時' do
+    let(:event) { create(:future_event) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      visit edit_event_path(id: event.id)
+    end
+
+    context 'かつ、ログインユーザがそのイベントの主催者でない時' do
+      it 'トップページに遷移すること' do
+        expect(page).to have_content /イベント一覧/
+      end
+
+      it '「そのイベントは存在しません」が表示されていること' do
+        expect(page).to have_content /そのイベントは存在しません/
+      end
+    end
+  end
+
   describe '詳細画面で、ユーザが"イベントを編集する"をクリックした時' do
     let(:user) { create(:user) }
     let(:user_event) { create(:future_event, owner_id: user.id) }
