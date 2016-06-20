@@ -46,7 +46,6 @@ describe EventsController do
       before do
         session[:user_id] = user.id
       end
-
       context 'かつパラメータ不足している時' do
         let(:error_event_params) do
           {
@@ -131,6 +130,96 @@ describe EventsController do
 
         it 'トップページにリダイレクトすること' do
           expect(response).to redirect_to(root_path)
+        end
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    let(:user) { create(:user)}
+    let(:user_event) { create(:future_event, owner_id: user.id) }
+
+    context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
+      let(:other_user) { create(:user)}
+
+      before do
+        session[:user_id] = other_user.id
+        get :edit, id: user_event.id
+      end
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+      before do
+        session[:user_id] = user.id
+        get :edit, id: user_event.id
+      end
+
+      it '@event のedit テンプレートをrender していること' do
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'ログインユーザが主催者のイベント編集ページで更新ボタンが押された時' do
+      let!(:user) { create(:user) }
+      let!(:event) { create(:future_event, owner_id: user.id) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      context 'かつ、パラメータに不備がある時' do
+        let(:params) do
+          {
+              name: "大事な会議",
+              start_time: DateTime.new(event.start_time.year,6,3,13,00),
+              end_time: DateTime.new(event.start_time.year - 1,6,3,12,00) #=> 1年前に変更。
+          }
+        end
+
+        before do
+          patch :update, {id: event.id, event: params}
+        end
+
+        it '@event のedit テンプレートをrender していること' do
+          expect(response).to render_template :edit
+        end
+      end
+
+      context 'かつ正しいパラメータが入っている時' do
+        let(:params) do
+          {
+            id: event.id,
+            owner_id: event.owner_id,
+            name: "update event name",
+            place: "update event place",
+            content: "update event context",
+            start_time: DateTime.new(event.start_time.year,1,1,00,00),
+            end_time: DateTime.new(event.end_time.year,1,1,01,00)
+          }
+        end
+
+        before do
+          patch :update, {id: event.id, event: params}
+        end
+
+        it '各パラメータが正しく格納されていること' do
+          updated_event = Event.find(event.id)
+          expect(updated_event.id).to eq params[:id]
+          expect(updated_event.owner_id).to eq params[:owner_id]
+          expect(updated_event.name).to eq params[:name]
+          expect(updated_event.place).to eq params[:place]
+          expect(updated_event.start_time).to eq params[:start_time]
+          expect(updated_event.end_time).to eq params[:end_time]
+        end
+
+        it 'show テンプレートをrender していること' do
+          expect(response).to redirect_to event_path
         end
       end
     end
