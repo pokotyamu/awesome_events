@@ -13,7 +13,7 @@ RSpec.feature "DestroyEvents", type: :feature do
     context 'かつ、イベント一覧ページから行う時' do
       before do
         visit root_path
-        click_button '削除'
+        click_link '削除'
       end
 
       context 'かつ、削除確認で「ok」を押した時' do
@@ -44,7 +44,7 @@ RSpec.feature "DestroyEvents", type: :feature do
     context 'かつ、イベント詳細ページから行う時' do
       before do
         visit event_path(id: user_event.id)
-        click_button 'イベントを削除する'
+        click_link 'イベントを削除する'
       end
 
       context 'かつ、削除確認で「ok」を押した時' do
