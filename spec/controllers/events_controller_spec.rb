@@ -240,6 +240,10 @@ describe EventsController do
         expect(Event.find(event.id)).to eq event
         expect(Event.count).to eq 1
       end
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
+      end
     end
 
     context 'ログインユーザとイベントの主催者が同じ時' do
@@ -254,6 +258,10 @@ describe EventsController do
       it 'イベントが削除されていること' do
         expect { Event.find(event.id) }.to raise_error ActiveRecord::RecordNotFound
         expect(Event.count).to eq 0
+      end
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
       end
     end
   end
