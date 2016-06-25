@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Events", type: :request do
-  describe "GET /events" do
+  describe 'GET /events' do
     context '存在するイベントにアクセスした時' do
       let!(:event) { create(:future_event) }
       let!(:template) { 'show' }
