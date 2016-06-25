@@ -20,4 +20,12 @@ module RequestsSupport
       expect(response).to render_template("#{template}".to_s)
     end
   end
+
+  shared_examples_for 'redirect' do
+    it "期待したパスに redirect していること" do
+      subject
+      expect(response).to redirect_to redirect_path
+    end
+  end
+
 end
