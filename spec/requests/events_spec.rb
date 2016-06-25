@@ -2,11 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "Events", type: :request do
   describe "GET /events" do
-    let!(:event) { create(:future_event) }
-    subject { get "/events/#{event.id}"}
+    context '存在するイベントにアクセスした時' do
+      let!(:event) { create(:future_event) }
       let!(:template) { 'show' }
       subject { get "/events/#{event.id}"}
 
-    it_behaves_like 'HTTP 200 OK'
+      it_behaves_like 'HTTP 200 OK'
+      it_behaves_like 'render check'
+    end
+
+    context '存在しないイベントにアクセスした時' do
+      subject { get "/events/100"}
+      it_behaves_like 'HTTP 302 OK'
+    end
   end
 end
