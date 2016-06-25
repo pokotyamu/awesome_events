@@ -113,20 +113,6 @@ describe EventsController do
           expect(assigns(:event).start_time).to eq event.start_time
           expect(assigns(:event).end_time).to eq event.end_time
         end
-
-        it 'show テンプレートをrender していること' do
-          expect(response).to render_template :show
-        end
-      end
-
-      context 'かつ、作成していないイベントのページの時' do
-        before do
-          get :show, id: 0
-        end
-
-        it 'トップページにリダイレクトすること' do
-          expect(response).to redirect_to(root_path)
-        end
       end
     end
   end
