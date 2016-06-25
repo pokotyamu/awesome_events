@@ -39,6 +39,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    begin
+      @event = current_user.created_events.find(params[:id])
+      @event.destroy!
+      msg = '削除しました'
+    rescue ActiveRecord::RecordNotFound => e
+      msg = '主催者でないイベントは削除できません'
+    end
+    redirect_to root_path, notice: msg
+  end
+
   private
 
   def event_params

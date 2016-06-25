@@ -224,4 +224,45 @@ describe EventsController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'ログインユーザとイベントの主催者が違う時' do
+      let(:user) { create(:user) }
+      let(:other_user) { create(:user) }
+      let(:event) { create(:future_event, owner_id: other_user.id) }
+
+      before do
+        session[:user_id] = user.id
+        delete :destroy, id: event.id
+      end
+
+      it 'イベントが削除されていないこと' do
+        expect(Event.find(event.id)).to eq event
+        expect(Event.count).to eq 1
+      end
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'ログインユーザとイベントの主催者が同じ時' do
+      let(:user) { create(:user) }
+      let(:event) { create(:future_event, owner_id: user.id) }
+
+      before do
+        session[:user_id] = user.id
+        delete :destroy, id: event.id
+      end
+
+      it 'イベントが削除されていること' do
+        expect { Event.find(event.id) }.to raise_error ActiveRecord::RecordNotFound
+        expect(Event.count).to eq 0
+      end
+
+      it 'トップページにリダイレクトすること' do
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end
