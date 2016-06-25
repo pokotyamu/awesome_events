@@ -106,10 +106,6 @@ describe EventsController do
         get :show, id: event.id
       end
       context 'かつ、作成しているイベントのページの時' do
-        it 'ステータスコードとして200が返ること' do
-          expect(response.status).to eq(200)
-        end
-
         it '@event に、パラメータで指定したid のイベントが格納されている'  do
           expect(assigns(:event).owner_id).to eq  event.owner_id
           expect(assigns(:event).place).to eq event.place
