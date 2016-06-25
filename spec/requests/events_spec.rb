@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Events", type: :request do
   describe "GET /events" do
-    it "works! (now write some real specs)" do
-      get events_index_path
-      expect(response).to have_http_status(200)
-    end
+    let!(:event) { create(:future_event) }
+    subject { get "/events/#{event.id}"}
+
+    it_behaves_like 'HTTP 200 OK'
   end
 end
