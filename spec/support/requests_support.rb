@@ -16,7 +16,7 @@ module RequestsSupport
   shared_examples_for 'render check' do
     it "期待したテンプレートを render していること" do
       subject
-      expect(response).to render_template("#{template}".to_s)
+      expect(response).to render_template("#{template}".to_sym)
     end
   end
 
