@@ -32,36 +32,11 @@ describe EventsController do
   end
 
   describe 'POST #create' do
-    context '未ログインユーザがアクセスした時' do
-      before { post :create }
-
-      it 'トップページにリダイレクトすること' do
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context 'ログインユーザがアクセスした時' do
       let(:user) { create(:user) }
       let(:last_event) { Event.last }
       before do
         session[:user_id] = user.id
-      end
-      context 'かつパラメータ不足している時' do
-        let(:error_event_params) do
-          {
-            event:{
-              content: "大事な会議",
-              start_time: DateTime.new(2016,6,3,13,00),
-              end_time: DateTime.new(2016,6,3,18,00)
-            }
-          }
-        end
-
-        before { post :create , error_event_params }
-
-        it 'new テンプレートをrender していること' do
-          expect(response).to render_template :new
-        end
       end
 
       context 'かつ正しいパラメータが入っている時' do
@@ -89,10 +64,6 @@ describe EventsController do
           expect(assigns(:event).content).to eq last_event.content
           expect(assigns(:event).start_time).to eq last_event.start_time
           expect(assigns(:event).end_time).to eq last_event.end_time
-        end
-
-        it 'show テンプレートをrender していること' do
-          expect(response).to redirect_to(event_path(assigns(:event)))
         end
       end
     end
