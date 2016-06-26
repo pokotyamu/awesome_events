@@ -81,24 +81,6 @@ describe EventsController do
         session[:user_id] = user.id
       end
 
-      context 'かつ、パラメータに不備がある時' do
-        let(:params) do
-          {
-              name: "大事な会議",
-              start_time: DateTime.new(event.start_time.year,6,3,13,00),
-              end_time: DateTime.new(event.start_time.year - 1,6,3,12,00) #=> 1年前に変更。
-          }
-        end
-
-        before do
-          patch :update, {id: event.id, event: params}
-        end
-
-        it '@event のedit テンプレートをrender していること' do
-          expect(response).to render_template :edit
-        end
-      end
-
       context 'かつ正しいパラメータが入っている時' do
         let(:params) do
           {
@@ -124,10 +106,6 @@ describe EventsController do
           expect(updated_event.place).to eq params[:place]
           expect(updated_event.start_time).to eq params[:start_time]
           expect(updated_event.end_time).to eq params[:end_time]
-        end
-
-        it 'show テンプレートをrender していること' do
-          expect(response).to redirect_to event_path
         end
       end
     end
