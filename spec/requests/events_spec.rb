@@ -74,4 +74,26 @@ RSpec.describe "Events", type: :request do
       end
     end
   end
+
+  describe 'GET /events/new' do
+    subject { get '/events/new' }
+    context '未ログインユーザがアクセスした時' do
+      let(:redirect_path) { root_path }
+      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'redirect'
+    end
+
+    context 'ログインユーザがアクセスした時' do
+      let(:user) { create(:user) }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      let(:template) { 'new' }
+      it_behaves_like 'HTTP 200 OK'
+      it_behaves_like 'render check'
+    end
+  end
 end
