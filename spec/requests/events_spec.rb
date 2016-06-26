@@ -134,4 +134,57 @@ RSpec.describe "Events", type: :request do
       it_behaves_like 'render template'
     end
   end
+
+  describe 'PATCH /events/:id' do
+    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+      subject { patch "/events/#{user_event.id}", params }
+
+      let(:user) { create(:user) }
+      let(:user_event) { create(:future_event, owner_id: user.id) }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      context 'かつ、入力パラメータが不適な時' do
+        let(:template) { 'edit' }
+        let(:params) do
+          {
+            event:{
+              name: 'sample name',
+              place: 'sample place',
+              content: 'sample content',
+              start_time: DateTime.new(2016,6,3,13,00),
+              end_time: DateTime.new(2015,6,3,18,00)
+            }
+          }
+        end
+
+        it_behaves_like 'HTTP 200 OK'
+        it_behaves_like 'render template'
+      end
+
+      context 'かつ、入力パラメータが適切な時' do
+        let(:template) { 'show' }
+        let(:params) do
+          {
+            event:{
+              name: 'sample name',
+              place: 'sample place',
+              owner_id: user.id,
+              content: 'sample content',
+              start_time: DateTime.new(2016,6,3,13,00),
+              end_time: DateTime.new(2016,6,3,18,00)
+            }
+          }
+        end
+
+        it_behaves_like 'HTTP 302 OK'
+        it_behaves_like 'redirect /url_params' do
+          let(:url_params) { event_path(assigns(:event)) }
+        end
+      end
+    end
+  end
 end
