@@ -72,35 +72,6 @@ describe EventsController do
     end
   end
 
-  describe 'GET #edit' do
-    let(:user) { create(:user)}
-    let(:user_event) { create(:future_event, owner_id: user.id) }
-
-    context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
-      let(:other_user) { create(:user)}
-
-      before do
-        session[:user_id] = other_user.id
-        get :edit, id: user_event.id
-      end
-
-      it 'トップページにリダイレクトすること' do
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
-    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
-      before do
-        session[:user_id] = user.id
-        get :edit, id: user_event.id
-      end
-
-      it '@event のedit テンプレートをrender していること' do
-        expect(response).to render_template :edit
-      end
-    end
-  end
-
   describe 'PATCH #update' do
     context 'ログインユーザが主催者のイベント編集ページで更新ボタンが押された時' do
       let!(:user) { create(:user) }
