@@ -101,6 +101,37 @@ RSpec.describe "Events", type: :request do
     end
   end
 
+  describe 'GET /events/:id/edit' do
+    subject { get "/events/#{user_event.id}/edit" }
+
+    let(:user) { create(:user) }
+    let(:user_event) { create(:future_event, owner_id: user.id) }
+
+    context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
+      let(:other_user) { create(:user) }
+      let(:redirect_path) { root_path }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(other_user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'redirect'
+    end
+
+    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+      let(:user) { create(:user)}
+      let(:user_event) { create(:future_event, owner_id: user.id) }
+      let(:template) { 'edit' }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      it_behaves_like 'HTTP 200 OK'
+      it_behaves_like 'render template'
     end
   end
 end
