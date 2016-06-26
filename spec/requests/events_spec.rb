@@ -1,5 +1,10 @@
 require 'rails_helper'
 
+def setup(user,logged_in)
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(logged_in)
+end
+
 RSpec.describe "Events", type: :request do
   describe 'GET /events/:id' do
     context '存在するイベントにアクセスした時' do
@@ -36,8 +41,7 @@ RSpec.describe "Events", type: :request do
       let(:user) { create(:user) }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(user,true)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -92,8 +96,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'new' }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(user,true)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -112,8 +115,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(other_user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(other_user,true)
       end
 
       it_behaves_like 'HTTP 302 OK'
@@ -126,8 +128,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'edit' }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(user,true)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -143,8 +144,7 @@ RSpec.describe "Events", type: :request do
       let(:user_event) { create(:future_event, owner_id: user.id) }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(user,true)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -199,8 +199,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(other_user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(other_user,true)
       end
 
       it_behaves_like 'HTTP 302 OK'
@@ -211,8 +210,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+        setup(user,true)
       end
 
       it_behaves_like 'HTTP 302 OK'
