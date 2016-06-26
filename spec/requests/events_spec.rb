@@ -3,17 +3,20 @@ require 'rails_helper'
 RSpec.describe "Events", type: :request do
   describe 'GET /events/:id' do
     context '存在するイベントにアクセスした時' do
+      subject { get "/events/#{event.id}"}
+
       let(:event) { create(:future_event) }
       let(:template) { 'show' }
-      subject { get "/events/#{event.id}"}
 
       it_behaves_like 'HTTP 200 OK'
       it_behaves_like 'render template'
     end
 
     context '存在しないイベントにアクセスした時' do
-      let(:redirect_path) { root_path }
       subject { get "/events/100"}
+
+      let(:redirect_path) { root_path }
+
       it_behaves_like 'HTTP 302 OK'
       it_behaves_like 'redirect'
     end
@@ -77,6 +80,7 @@ RSpec.describe "Events", type: :request do
 
   describe 'GET /events/new' do
     subject { get '/events/new' }
+
     context '未ログインユーザがアクセスした時' do
       let(:redirect_path) { root_path }
       it_behaves_like 'HTTP 302 OK'
@@ -85,16 +89,18 @@ RSpec.describe "Events", type: :request do
 
     context 'ログインユーザがアクセスした時' do
       let(:user) { create(:user) }
+      let(:template) { 'new' }
 
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
       end
 
-      let(:template) { 'new' }
       it_behaves_like 'HTTP 200 OK'
       it_behaves_like 'render template'
     end
+  end
+
     end
   end
 end
