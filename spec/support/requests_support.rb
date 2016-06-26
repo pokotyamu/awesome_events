@@ -13,7 +13,7 @@ module RequestsSupport
     end
   end
 
-  shared_examples_for 'render check' do
+  shared_examples_for 'render template' do
     it "期待したテンプレートを render していること" do
       subject
       expect(response).to render_template("#{template}".to_sym)

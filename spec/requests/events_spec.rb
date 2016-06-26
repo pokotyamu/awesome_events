@@ -8,7 +8,7 @@ RSpec.describe "Events", type: :request do
       subject { get "/events/#{event.id}"}
 
       it_behaves_like 'HTTP 200 OK'
-      it_behaves_like 'render check'
+      it_behaves_like 'render template'
     end
 
     context '存在しないイベントにアクセスした時' do
@@ -49,7 +49,7 @@ RSpec.describe "Events", type: :request do
           }
         end
         it_behaves_like 'HTTP 200 OK'
-        it_behaves_like 'render check'
+        it_behaves_like 'render template'
       end
 
       context 'かつ、入力パラメータが適切な時' do
@@ -93,7 +93,8 @@ RSpec.describe "Events", type: :request do
 
       let(:template) { 'new' }
       it_behaves_like 'HTTP 200 OK'
-      it_behaves_like 'render check'
+      it_behaves_like 'render template'
+    end
     end
   end
 end
