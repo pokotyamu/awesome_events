@@ -187,4 +187,36 @@ RSpec.describe "Events", type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    subject { delete "/events/#{user_event.id}" }
+
+    let(:user) { create(:user) }
+    let(:user_event) { create(:future_event, owner_id: user.id) }
+
+    context 'ログインユーザとイベントの主催者が違う時' do
+      let(:other_user) { create(:user) }
+      let(:redirect_path) { root_path }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(other_user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'redirect'
+    end
+
+    context 'ログインユーザとイベントの主催者が同じ時' do
+      let(:redirect_path) { root_path }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+      end
+
+      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'redirect'
+    end
+  end
 end
