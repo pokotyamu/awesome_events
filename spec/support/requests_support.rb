@@ -26,11 +26,4 @@ module RequestsSupport
       expect(response).to redirect_to redirect_path
     end
   end
-
-  shared_examples_for 'redirect /url_params' do
-    it "期待したパスに redirect していること" do
-      subject
-      expect(response).to redirect_to url_params
-    end
-  end
 end

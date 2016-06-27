@@ -73,11 +73,10 @@ RSpec.describe "Events", type: :request do
             }
           }
         end
+        let(:redirect_path) { event_path(assigns(:event)) }
 
         it_behaves_like 'HTTP 302 OK'
-        it_behaves_like 'redirect /url_params' do
-          let(:url_params) { event_path(assigns(:event)) }
-        end
+        it_behaves_like 'redirect'
       end
     end
   end
@@ -179,11 +178,10 @@ RSpec.describe "Events", type: :request do
             }
           }
         end
+        let(:redirect_path) { event_path(assigns(:event)) }
 
         it_behaves_like 'HTTP 302 OK'
-        it_behaves_like 'redirect /url_params' do
-          let(:url_params) { event_path(assigns(:event)) }
-        end
+        it_behaves_like 'redirect'
       end
     end
   end
