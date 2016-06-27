@@ -102,6 +102,9 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
+  # NOTE: テストを行う順番をランダムにする
+  config.order = :random
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
