@@ -17,7 +17,7 @@ RSpec.describe "Events", type: :request do
 
       let(:redirect_path) { root_path }
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe "Events", type: :request do
     context '未ログインユーザがアクセスした時' do
       let(:redirect_path) { root_path }
       let(:params) {}
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -70,7 +70,7 @@ RSpec.describe "Events", type: :request do
         end
         let(:redirect_path) { event_path(assigns(:event)) }
 
-        it_behaves_like 'HTTP 302 OK'
+        it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe "Events", type: :request do
 
     context '未ログインユーザがアクセスした時' do
       let(:redirect_path) { root_path }
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -112,7 +112,7 @@ RSpec.describe "Events", type: :request do
         set_up_loggin(other_user,true)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -175,7 +175,7 @@ RSpec.describe "Events", type: :request do
         end
         let(:redirect_path) { event_path(assigns(:event)) }
 
-        it_behaves_like 'HTTP 302 OK'
+        it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
       end
     end
@@ -195,7 +195,7 @@ RSpec.describe "Events", type: :request do
         set_up_loggin(other_user,true)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -206,7 +206,7 @@ RSpec.describe "Events", type: :request do
         set_up_loggin(user,true)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
   end
