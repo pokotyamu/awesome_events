@@ -4,7 +4,7 @@ describe EventsController, type: :controller do
   describe 'GET #new' do
     context 'ログインユーザがアクセスした時' do
       before do
-        set_up_loggin(create(:user), true)
+        login(create(:user))
         get :new
       end
 
@@ -20,7 +20,7 @@ describe EventsController, type: :controller do
       let(:last_event) { Event.last }
 
       before do
-        set_up_loggin(user, true)
+        login(user)
       end
 
       context 'かつ正しいパラメータが入っている時' do
@@ -78,7 +78,7 @@ describe EventsController, type: :controller do
       let!(:event) { create(:future_event, owner_id: user.id) }
 
       before do
-        set_up_loggin(user, true)
+        login(user)
       end
 
       context 'かつ正しいパラメータが入っている時' do
@@ -118,7 +118,7 @@ describe EventsController, type: :controller do
       let(:event) { create(:future_event, owner_id: other_user.id) }
 
       before do
-        set_up_loggin(user, true)
+        login(user)
         delete :destroy, id: event.id
       end
 
@@ -133,7 +133,7 @@ describe EventsController, type: :controller do
       let(:event) { create(:future_event, owner_id: user.id) }
 
       before do
-        set_up_loggin(user, true)
+        login(user)
         delete :destroy, id: event.id
       end
 

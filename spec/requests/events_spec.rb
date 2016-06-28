@@ -36,7 +36,7 @@ RSpec.describe "Events", type: :request do
       let(:user) { create(:user) }
 
       before do
-        set_up_loggin(user,true)
+        login(user)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -90,7 +90,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'new' }
 
       before do
-        set_up_loggin(user,true)
+        login(user)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -109,7 +109,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        set_up_loggin(other_user,true)
+        login(other_user)
       end
 
       it_behaves_like 'HTTP 302 Found'
@@ -122,7 +122,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'edit' }
 
       before do
-        set_up_loggin(user,true)
+        login(user)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -138,7 +138,7 @@ RSpec.describe "Events", type: :request do
       let(:user_event) { create(:future_event, owner_id: user.id) }
 
       before do
-        set_up_loggin(user,true)
+        login(user)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -192,7 +192,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        set_up_loggin(other_user,true)
+        login(other_user)
       end
 
       it_behaves_like 'HTTP 302 Found'
@@ -203,7 +203,7 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        set_up_loggin(user,true)
+        login(user)
       end
 
       it_behaves_like 'HTTP 302 Found'

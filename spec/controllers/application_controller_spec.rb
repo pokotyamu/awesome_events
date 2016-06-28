@@ -12,7 +12,7 @@ describe ApplicationController do
       let(:user) { create(:user) }
 
       before do
-        set_up_loggin(user, true)
+        login(user)
       end
 
       it 'ログインユーザのインスタンスが返る' do
