@@ -24,7 +24,7 @@ RSpec.feature "EditEvent", type: :feature do
     let(:user_event) { create(:future_event, owner_id: user.id) }
 
     before do
-      setup(user,true)
+      set_up_loggin(user,true)
       visit event_path(id: user_event.id)
       click_link 'イベントを編集する'
     end
