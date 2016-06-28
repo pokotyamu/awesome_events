@@ -1,10 +1,5 @@
 require 'rails_helper'
 
-def setup(user,logged_in)
-  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-  allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(logged_in)
-end
-
 RSpec.describe "Events", type: :request do
   describe 'GET /events/:id' do
     context '存在するイベントにアクセスした時' do
