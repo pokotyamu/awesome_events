@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-describe EventsController do
+describe EventsController, type: :controller do
   describe 'GET #new' do
     context 'ログインユーザがアクセスした時' do
       before do
-        user = create(:user)
-        session[:user_id] = user.id
+        set_up_loggin(create(:user), true)
         get :new
       end
 
@@ -19,8 +18,9 @@ describe EventsController do
     context 'ログインユーザがアクセスした時' do
       let(:user) { create(:user) }
       let(:last_event) { Event.last }
+
       before do
-        session[:user_id] = user.id
+        set_up_loggin(user, true)
       end
 
       context 'かつ正しいパラメータが入っている時' do
@@ -78,7 +78,7 @@ describe EventsController do
       let!(:event) { create(:future_event, owner_id: user.id) }
 
       before do
-        session[:user_id] = user.id
+        set_up_loggin(user, true)
       end
 
       context 'かつ正しいパラメータが入っている時' do
@@ -118,7 +118,7 @@ describe EventsController do
       let(:event) { create(:future_event, owner_id: other_user.id) }
 
       before do
-        session[:user_id] = user.id
+        set_up_loggin(user, true)
         delete :destroy, id: event.id
       end
 
@@ -133,7 +133,7 @@ describe EventsController do
       let(:event) { create(:future_event, owner_id: user.id) }
 
       before do
-        session[:user_id] = user.id
+        set_up_loggin(user, true)
         delete :destroy, id: event.id
       end
 
