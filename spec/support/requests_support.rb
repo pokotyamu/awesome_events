@@ -6,8 +6,8 @@ module RequestsSupport
     end
   end
 
-  shared_examples_for 'HTTP 302 OK' do
-    it '302 OK で応答すること' do
+  shared_examples_for 'HTTP 302 Found' do
+    it '302 Found で応答すること' do
       subject
       expect(response).to have_http_status 302
     end

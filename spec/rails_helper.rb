@@ -57,4 +57,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include Capybara::DSL
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include LoginHelper, type: :controller
+  config.include LoginHelper, type: :request
+  config.include LoginHelper, type: :feature
 end

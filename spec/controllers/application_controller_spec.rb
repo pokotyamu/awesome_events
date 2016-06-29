@@ -9,12 +9,14 @@ describe ApplicationController do
     end
 
     context 'ユーザがログインしている時' do
+      let(:user) { create(:user) }
+
       before do
-        user = create(:user)
-        session[:user_id] = user.id
+        login(user)
       end
+
       it 'ログインユーザのインスタンスが返る' do
-        expect(subject.current_user.id).to eq(session[:user_id])
+        expect(subject.current_user.id).to eq(user.id)
       end
     end
   end

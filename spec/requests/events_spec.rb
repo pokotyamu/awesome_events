@@ -1,10 +1,5 @@
 require 'rails_helper'
 
-def setup(user,logged_in)
-  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-  allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(logged_in)
-end
-
 RSpec.describe "Events", type: :request do
   describe 'GET /events/:id' do
     context '存在するイベントにアクセスした時' do
@@ -22,7 +17,7 @@ RSpec.describe "Events", type: :request do
 
       let(:redirect_path) { root_path }
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
   end
@@ -33,7 +28,7 @@ RSpec.describe "Events", type: :request do
     context '未ログインユーザがアクセスした時' do
       let(:redirect_path) { root_path }
       let(:params) {}
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -41,7 +36,7 @@ RSpec.describe "Events", type: :request do
       let(:user) { create(:user) }
 
       before do
-        setup(user,true)
+        login(user)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -75,7 +70,7 @@ RSpec.describe "Events", type: :request do
         end
         let(:redirect_path) { event_path(assigns(:event)) }
 
-        it_behaves_like 'HTTP 302 OK'
+        it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
       end
     end
@@ -86,7 +81,7 @@ RSpec.describe "Events", type: :request do
 
     context '未ログインユーザがアクセスした時' do
       let(:redirect_path) { root_path }
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -95,7 +90,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'new' }
 
       before do
-        setup(user,true)
+        login(user)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -114,10 +109,10 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        setup(other_user,true)
+        login(other_user)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -127,7 +122,7 @@ RSpec.describe "Events", type: :request do
       let(:template) { 'edit' }
 
       before do
-        setup(user,true)
+        login(user)
       end
 
       it_behaves_like 'HTTP 200 OK'
@@ -143,7 +138,7 @@ RSpec.describe "Events", type: :request do
       let(:user_event) { create(:future_event, owner_id: user.id) }
 
       before do
-        setup(user,true)
+        login(user)
       end
 
       context 'かつ、入力パラメータが不適な時' do
@@ -180,7 +175,7 @@ RSpec.describe "Events", type: :request do
         end
         let(:redirect_path) { event_path(assigns(:event)) }
 
-        it_behaves_like 'HTTP 302 OK'
+        it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
       end
     end
@@ -197,10 +192,10 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        setup(other_user,true)
+        login(other_user)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
 
@@ -208,10 +203,10 @@ RSpec.describe "Events", type: :request do
       let(:redirect_path) { root_path }
 
       before do
-        setup(user,true)
+        login(user)
       end
 
-      it_behaves_like 'HTTP 302 OK'
+      it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
     end
   end
