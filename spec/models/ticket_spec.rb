@@ -1,5 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'バリデーション' do
+    context '#comment' do
+      context '31文字以上の時' do
+        let(:ticket) { build(:ticket, comment: 'a' * 31) }
+        it 'バリデーションエラーとなること' do
+          expect(ticket).to be_invalid(:comment)
+        end
+      end
+    end
+  end
 end
