@@ -5,7 +5,7 @@ RSpec.describe Ticket, type: :model do
     context '#comment' do
       context '31文字以上の時' do
         let(:ticket) { build(:ticket, comment: 'a' * 31) }
-        it 'バリデーションエラーとなること' do
+        it 'invalid となること' do
           expect(ticket).to be_invalid(:comment)
         end
       end
