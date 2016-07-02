@@ -9,6 +9,13 @@ RSpec.describe Ticket, type: :model do
           expect(ticket).to be_invalid(:comment)
         end
       end
+
+      context '空白の時' do
+        let(:ticket) { build(:ticket, comment: '') }
+        it 'valid となること' do
+          expect(ticket).to be_valid(:comment)
+        end
+      end
     end
   end
 end
