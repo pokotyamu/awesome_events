@@ -43,6 +43,6 @@ RSpec.describe User, type: :model do
 
   describe 'リレーション' do
     it { should have_many(:created_events) }
-    it { should have_many(:ticket) }
+    it { should have_many(:tickets) }
   end
 end
