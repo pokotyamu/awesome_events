@@ -18,4 +18,9 @@ RSpec.describe Ticket, type: :model do
       end
     end
   end
+
+  describe 'リレーション' do
+    it { should belong_to(:user) }
+    it { should belong_to(:event) }
+  end
 end
