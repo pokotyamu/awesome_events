@@ -19,6 +19,8 @@ RSpec.describe "Tickets", type: :request do
       it 'チケットが１つ作成されること' do
         expect{ subject }.to change(Ticket, :count).by(1)
       end
+
+      it_behaves_like 'HTTP 201 Created'
     end
   end
 end

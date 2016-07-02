@@ -6,6 +6,13 @@ module RequestsSupport
     end
   end
 
+  shared_examples_for 'HTTP 201 Created' do
+    it '201 Createdで応答すること' do
+      subject
+      expect(response).to have_http_status 201
+    end
+  end
+
   shared_examples_for 'HTTP 302 Found' do
     it '302 Found で応答すること' do
       subject

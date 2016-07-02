@@ -5,7 +5,8 @@ class TicketsController < ApplicationController
       t.comment = comment_params[:comment]
     end
     ticket.save
-    redirect_to event_path(ticket.event_id)
+    flash[:notice] = 'このイベントに参加表明しました'
+    head 201
   end
 
   private
