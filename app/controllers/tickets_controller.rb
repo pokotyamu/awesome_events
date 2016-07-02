@@ -4,9 +4,12 @@ class TicketsController < ApplicationController
       t.event_id = params[:event_id]
       t.comment = comment_params[:comment]
     end
-    ticket.save
-    flash[:notice] = 'このイベントに参加表明しました'
-    head 201
+    if ticket.save
+      flash[:notice] = 'このイベントに参加表明しました'
+      head 201
+    else
+      render json: { messages: ticket.errors.full_messages }, status: 422
+    end
   end
 
   private
