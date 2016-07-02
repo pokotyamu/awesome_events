@@ -22,5 +22,17 @@ RSpec.describe "Tickets", type: :request do
 
       it_behaves_like 'HTTP 201 Created'
     end
+
+    context '値が間違っている時' do
+      let(:ticket_params) do
+        {
+          ticket: {
+            comment: 'a' * 31
+          }
+        }
+      end
+
+      it_behaves_like 'HTTP 422 Unprocessable Entity'
+    end
   end
 end

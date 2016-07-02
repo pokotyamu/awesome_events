@@ -20,6 +20,13 @@ module RequestsSupport
     end
   end
 
+  shared_examples_for 'HTTP 422 Unprocessable Entity' do
+    it '422 Unprocessable Entity で応答すること' do
+      subject
+      expect(response).to have_http_status 422
+    end
+  end
+
   shared_examples_for 'render template' do
     it "期待したテンプレートを render していること" do
       subject
