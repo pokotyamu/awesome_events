@@ -1,6 +1,11 @@
 class TicketsController < ApplicationController
   before_action :authenticate
 
+  def new
+    flash[:notice] = '正しい手順でイベントに参加してください'
+    redirect_to root_path
+  end
+
   def create
     ticket = current_user.tickets.build do |t|
       t.event_id = params[:event_id]

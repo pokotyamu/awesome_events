@@ -40,4 +40,12 @@ module RequestsSupport
       expect(response).to redirect_to redirect_path
     end
   end
+
+  shared_examples_for 'flash' do
+    it "期待したflash メッセージが用意されていること" do
+      subject
+      expect(flash[:notice]).to eq message
+    end
+  end
+
 end
