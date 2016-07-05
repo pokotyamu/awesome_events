@@ -20,10 +20,10 @@ module RequestsSupport
     end
   end
 
-  shared_examples_for 'HTTP 422 Unprocessable Entity' do
-    it '422 Unprocessable Entity で応答すること' do
+  shared_examples_for 'HTTP 400 Bad Request' do
+    it '400 Bad Request で応答すること' do
       subject
-      expect(response).to have_http_status 422
+      expect(response).to have_http_status 400
     end
   end
 

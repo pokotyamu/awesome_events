@@ -52,7 +52,7 @@ RSpec.describe "Tickets", type: :request do
         }
       end
 
-      it_behaves_like 'HTTP 422 Unprocessable Entity'
+      it_behaves_like 'HTTP 400 Bad Request'
     end
   end
 end

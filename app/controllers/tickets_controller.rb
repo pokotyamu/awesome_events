@@ -14,7 +14,7 @@ class TicketsController < ApplicationController
       flash[:notice] = 'このイベントに参加表明しました'
       head 201
     else
-      render json: { messages: ticket.errors.full_messages }, status: 422
+      render json: { messages: ticket.errors.full_messages }, status: 400
     end
   end
 
