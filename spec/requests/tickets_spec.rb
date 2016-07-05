@@ -38,7 +38,7 @@ RSpec.describe "Tickets", type: :request do
       end
 
       it_behaves_like 'HTTP 201 Created'
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash notice' do
         let(:message) { 'このイベントに参加表明しました' }
       end
     end

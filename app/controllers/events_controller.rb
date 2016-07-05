@@ -18,7 +18,7 @@ class EventsController < ApplicationController
     begin
       @event = Event.find(params[:id])
     rescue
-      redirect_to root_path, notice: 'そのイベントは存在しません'
+      redirect_to root_path, alert: 'そのイベントは存在しません'
     end
   end
 
@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     begin
       @event = current_user.created_events.find(params[:id])
     rescue
-      redirect_to root_path, notice: 'そのイベントは存在しません'
+      redirect_to root_path, alert: 'そのイベントは存在しません'
     end
   end
 
@@ -43,11 +43,10 @@ class EventsController < ApplicationController
     begin
       @event = current_user.created_events.find(params[:id])
       @event.destroy!
-      msg = '削除しました'
+      redirect_to root_path, notice: '削除しました'
     rescue ActiveRecord::RecordNotFound => e
-      msg = '主催者でないイベントは削除できません'
+      redirect_to root_path, alert: '主催者でないイベントは削除できません'
     end
-    redirect_to root_path, notice: msg
   end
 
   private

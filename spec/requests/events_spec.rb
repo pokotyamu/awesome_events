@@ -19,7 +19,7 @@ RSpec.describe "Events", type: :request do
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash alert' do
         let(:message) { 'そのイベントは存在しません' }
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe "Events", type: :request do
 
         it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
-        it_behaves_like 'flash' do
+        it_behaves_like 'flash notice' do
           let(:message) { '作成しました' }
         end
       end
@@ -143,7 +143,7 @@ RSpec.describe "Events", type: :request do
       it_behaves_like 'redirect' do
         let(:redirect_path) { root_path }
       end
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash alert' do
         let(:message) { 'そのイベントは存在しません' }
       end
     end
@@ -194,7 +194,7 @@ RSpec.describe "Events", type: :request do
 
         it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
-        it_behaves_like 'flash' do
+        it_behaves_like 'flash notice' do
           let(:message) { '更新しました' }
         end
       end
@@ -215,7 +215,7 @@ RSpec.describe "Events", type: :request do
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash alert' do
         let(:message) { '主催者でないイベントは削除できません' }
       end
     end
@@ -227,7 +227,7 @@ RSpec.describe "Events", type: :request do
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash notice' do
         let(:message) { '削除しました' }
       end
     end

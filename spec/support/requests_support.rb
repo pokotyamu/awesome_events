@@ -41,7 +41,7 @@ module RequestsSupport
     end
   end
 
-  shared_examples_for 'flash' do
+  shared_examples_for 'flash notice' do
     it "期待したflash メッセージが用意されていること" do
       subject
       expect(flash[:notice]).to eq message
