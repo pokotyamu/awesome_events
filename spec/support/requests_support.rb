@@ -48,4 +48,10 @@ module RequestsSupport
     end
   end
 
+  shared_examples_for 'flash alert' do
+    it "期待したflash メッセージが用意されていること" do
+      subject
+      expect(flash[:alert]).to eq message
+    end
+  end
 end

@@ -2,8 +2,7 @@ class TicketsController < ApplicationController
   before_action :authenticate
 
   def new
-    flash[:notice] = '正しい手順でイベントに参加してください'
-    redirect_to root_path
+    redirect_to root_path, alert: '正しい手順でイベントに参加してください'
   end
 
   def create

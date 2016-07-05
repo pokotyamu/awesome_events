@@ -12,7 +12,7 @@ RSpec.describe "Tickets", type: :request do
       let(:redirect_path) { root_path }
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
-      it_behaves_like 'flash' do
+      it_behaves_like 'flash alert' do
         let(:message) { '正しい手順でイベントに参加してください' }
       end
     end
