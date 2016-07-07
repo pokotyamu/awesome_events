@@ -6,10 +6,24 @@ module RequestsSupport
     end
   end
 
+  shared_examples_for 'HTTP 201 Created' do
+    it '201 Createdで応答すること' do
+      subject
+      expect(response).to have_http_status 201
+    end
+  end
+
   shared_examples_for 'HTTP 302 Found' do
     it '302 Found で応答すること' do
       subject
       expect(response).to have_http_status 302
+    end
+  end
+
+  shared_examples_for 'HTTP 400 Bad Request' do
+    it '400 Bad Request で応答すること' do
+      subject
+      expect(response).to have_http_status 400
     end
   end
 
@@ -24,6 +38,20 @@ module RequestsSupport
     it "期待したパスに redirect していること" do
       subject
       expect(response).to redirect_to redirect_path
+    end
+  end
+
+  shared_examples_for 'flash notice' do
+    it "期待したflash メッセージが用意されていること" do
+      subject
+      expect(flash[:notice]).to eq message
+    end
+  end
+
+  shared_examples_for 'flash alert' do
+    it "期待したflash メッセージが用意されていること" do
+      subject
+      expect(flash[:alert]).to eq message
     end
   end
 end

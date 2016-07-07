@@ -67,4 +67,9 @@ describe Event, type: :model do
       end
     end
   end
+
+  describe 'リレーション' do
+    it { should belong_to(:owner) }
+    it { should have_many(:tickets) }
+  end
 end

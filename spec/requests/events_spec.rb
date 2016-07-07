@@ -19,6 +19,9 @@ RSpec.describe "Events", type: :request do
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
+      it_behaves_like 'flash alert' do
+        let(:message) { 'そのイベントは存在しません' }
+      end
     end
   end
 
@@ -72,6 +75,9 @@ RSpec.describe "Events", type: :request do
 
         it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
+        it_behaves_like 'flash notice' do
+          let(:message) { '作成しました' }
+        end
       end
     end
   end
@@ -99,34 +105,47 @@ RSpec.describe "Events", type: :request do
   end
 
   describe 'GET /events/:id/edit' do
-    subject { get "/events/#{user_event.id}/edit" }
+    context 'イベントが存在する時' do
+      subject { get "/events/#{user_event.id}/edit" }
+      let(:user) { create(:user) }
+      let(:user_event) { create(:future_event, owner_id: user.id) }
 
-    let(:user) { create(:user) }
-    let(:user_event) { create(:future_event, owner_id: user.id) }
+      context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
+        let(:other_user) { create(:user) }
+        let(:redirect_path) { root_path }
 
-    context 'ログインユーザが主催者でないイベント編集ページにアクセスした時' do
-      let(:other_user) { create(:user) }
-      let(:redirect_path) { root_path }
+        before do
+          login(other_user)
+        end
 
-      before do
-        login(other_user)
+        it_behaves_like 'HTTP 302 Found'
+        it_behaves_like 'redirect'
       end
 
-      it_behaves_like 'HTTP 302 Found'
-      it_behaves_like 'redirect'
+      context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
+        let(:user) { create(:user)}
+        let(:user_event) { create(:future_event, owner_id: user.id) }
+
+        before { login(user) }
+
+        it_behaves_like 'HTTP 200 OK'
+        it_behaves_like 'render template' do
+          let(:template) { 'edit' }
+        end
+      end
     end
 
-    context 'ログインユーザが主催者のイベント編集ページにアクセスした時' do
-      let(:user) { create(:user)}
-      let(:user_event) { create(:future_event, owner_id: user.id) }
-      let(:template) { 'edit' }
+    context 'イベントが存在しない時' do
+      subject { get "/events/100/edit" }
+      before { login(create(:user)) }
 
-      before do
-        login(user)
+      it_behaves_like 'HTTP 302 Found'
+      it_behaves_like 'redirect' do
+        let(:redirect_path) { root_path }
       end
-
-      it_behaves_like 'HTTP 200 OK'
-      it_behaves_like 'render template'
+      it_behaves_like 'flash alert' do
+        let(:message) { 'そのイベントは存在しません' }
+      end
     end
   end
 
@@ -137,9 +156,7 @@ RSpec.describe "Events", type: :request do
       let(:user) { create(:user) }
       let(:user_event) { create(:future_event, owner_id: user.id) }
 
-      before do
-        login(user)
-      end
+      before { login(user) }
 
       context 'かつ、入力パラメータが不適な時' do
         let(:template) { 'edit' }
@@ -177,6 +194,9 @@ RSpec.describe "Events", type: :request do
 
         it_behaves_like 'HTTP 302 Found'
         it_behaves_like 'redirect'
+        it_behaves_like 'flash notice' do
+          let(:message) { '更新しました' }
+        end
       end
     end
   end
@@ -191,23 +211,25 @@ RSpec.describe "Events", type: :request do
       let(:other_user) { create(:user) }
       let(:redirect_path) { root_path }
 
-      before do
-        login(other_user)
-      end
+      before { login(other_user) }
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
+      it_behaves_like 'flash alert' do
+        let(:message) { '主催者でないイベントは削除できません' }
+      end
     end
 
     context 'ログインユーザとイベントの主催者が同じ時' do
       let(:redirect_path) { root_path }
 
-      before do
-        login(user)
-      end
+      before { login(user) }
 
       it_behaves_like 'HTTP 302 Found'
       it_behaves_like 'redirect'
+      it_behaves_like 'flash notice' do
+        let(:message) { '削除しました' }
+      end
     end
   end
 end
