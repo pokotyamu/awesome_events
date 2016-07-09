@@ -18,7 +18,7 @@
 	    </div>
 	</div>
 	<div class="panel panel-default">
-	    <div class="panel-heading">
+	  <div class="panel-heading">
 		開催時間
 	    </div>
 	    <div class="panel-body">
@@ -74,6 +74,24 @@
 	    	</div>
 	    <% end %>
 	<% end %>
-		</div>
+	<hr>
+	<div class="panel-body">
+	    <div class="panel-heading">
+		<%= "参加者  #{@tickets.size}人" %>
+	    </div>
+	    <div class="panel-body">
+		<ul class="list-unstyled">
+		    <% @tickets.each do |ticket| %>
+			<li>
+			    <%= link_to(url_for_twitter(ticket.user)) do %>
+				<%= image_tag ticket.user.image_url, width: 20, height: 20 %>
+				<%= "@#{ticket.user.nickname}" %>
+			    <% end %>
+			    <%= ticket.comment %>
+			</li>
+		    <% end %>
+		</ul>
+	    </div>
+	</div>
     </div>
 </div>
