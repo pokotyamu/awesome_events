@@ -60,6 +60,9 @@ group :development, :test do
   gem "capistrano-rails"
   gem "capistrano-bundler"
   gem "capistrano3-unicorn"
+
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 group :development do
