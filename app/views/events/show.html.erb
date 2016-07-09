@@ -77,11 +77,11 @@
 	<hr>
 	<div class="panel-body">
 	    <div class="panel-heading">
-		<%= "参加者  #{@tickets.size}人" %>
+		<%= "参加者  #{@tickets&.size}人" %>
 	    </div>
 	    <div class="panel-body">
 		<ul class="list-unstyled">
-		    <% @tickets.each do |ticket| %>
+		    <% @tickets&.each do |ticket| %>
 			<li>
 			    <%= link_to(url_for_twitter(ticket.user)) do %>
 				<%= image_tag ticket.user.image_url, width: 20, height: 20 %>
