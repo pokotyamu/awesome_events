@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :ticket do
+    association :event, factory: :future_event
     user
-    event
     sequence(:comment) { |i| "コメント#{i}" }
   end
 end
