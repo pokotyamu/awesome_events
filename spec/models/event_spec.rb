@@ -1,6 +1,29 @@
 require 'rails_helper'
 
 describe Event, type: :model do
+
+  describe '#guest?(user)' do
+    subject { event.guest?(user) }
+
+    let(:event) { create(:future_event) }
+    let(:user) { create(:user) }
+    let!(:ticket) { create(:ticket, event: event, user: user)}
+
+    context 'user がイベントに参加している時' do
+      it 'ticket が返ること' do
+        expect(subject).to eq ticket
+      end
+    end
+
+    context 'user がイベントに参加していない時' do
+      before { ticket.destroy }
+      it 'nil が返ること' do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
+
   describe '#name' do
     it '空白である時validationエラーとなる' do
       should validate_presence_of(:name)
