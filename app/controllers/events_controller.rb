@@ -17,6 +17,7 @@ class EventsController < ApplicationController
   def show
     begin
       @event = Event.find(params[:id])
+      @tickets = @event.tickets.includes(:user).order(:created_at)
     rescue
       redirect_to root_path, alert: 'そのイベントは存在しません'
     end
